@@ -1,0 +1,103 @@
+
+<div ng-controller="__slot">
+	<div class="flaceholder-banner">
+		<div ng-include="'tpl/banners.html'"></div>
+	</div>
+	<div announcement></div>
+	<div class="index-game-content">
+		<div class="am-container boma-container pt-games">
+			<div class="pt-categroy-head">
+				<div class="am-fl pt-ptname">
+					<span ng-repeat="item in slots | orderBy: pfName :true" class="am-margin-left-sm am-fl  pointer" ng-class="{'active-red': _cpf == item.pfName, 'boma-color-red': _cpf != item.pfName}"
+					 ng-bind="item.pfName" ng-click="changePf(item)"></span>
+				</div>
+				
+				<div class="am-fr game-search">
+					<input autocomplete="off"  ng-change="searchGame();" ng-model="_search" placeholder="{{'placeholder_gamename' | i18n}}" />
+					<clear-model ng-model="_search"></clear-model>
+				</div>
+			</div>
+			<div class="am-margin-bottom">
+				<span ng-repeat="item in categories | filter: {pf: _cpf} track by $index" 
+					class="am-padding-horizontal-sm pointer" ng-class="{'leftborder': $index !== 0}">
+					<span class="pt-categroy-name" ng-class="{'pt-categroy-name-active': _c == item}" ng-click="changeCa(item)">
+						<label ng-if="item.collect" class="boma-color-red">{{'icon-love' | i18n}}&nbsp;</label>{{item.name}}
+					</span>
+				</span>
+			</div>
+			<hr class="boma-margin-top-none">
+			<div class="am-u-sm-9">
+				<ul class="am-avg-sm-5 content-inbtn">
+					<li ng-repeat="item in filtered = (games | filter: {pf: _cpf, ca:_cca, zh:_search, favorite:_cco} | unique: 'game_name') | limitTo : showCount"
+					 class="relative am-margin-bottom ngFade pt-float-bg">
+						<img class="pt-game" lazy isrc="static/boma_v3/skin/v3_normal/images/common{{item.image}}" ng-mouseenter="inGameArea(item)" />		
+						<div class="pt-float-playgame" ng-if="_cgame === item.game_name" ng-mouseleave="outGameArea()">
+							<button ng-click="trySlot(item)" class="boma-btn-white-xs pt-tryGame" ng-if="item.try_play === 1"><span ng-bind="'common-trygame' | i18n"></span></button>
+							<button login-checker="playSlot(item)" class="boma-btn-white-xs pt-playGame" ng-class="{'pt-playGame-only': item.try_play !== 0}">
+								<span ng-bind="'common-beginGame' | i18n"></span>
+							</button>
+						</div>		
+						<div class="am-margin-top-sm am-margin-bottom-lg am-text-left am-text-default">
+							<span class="boma-padding-none am-u-sm-9" ng-if="$root.lang === 'zh-cn'" ng-bind="item.zh"></span>
+							<span class="am-u-sm-3  boma-padding-none pointer pt-game-unfavorite" ng-if="item.favorite === 0" login-checker="setFavorite(item)"></span>
+							<span class="am-u-sm-3  boma-padding-none pointer pt-game-favorite" ng-if="item.favorite !== 0" login-checker="setFavorite(item)"></span>
+						</div>
+						<span ng-if="item.try_play !== 0" class="pt-game-try"></span>
+					</li>
+				</ul>
+				<div class="am-text-center am-margin-bottom-lg am-margin-top" ng-if="filtered.length >= showCount">
+					<span class="pointer slot-showmore" ng-click="showMoreGames()" ng-bind="'common-more-game' | i18n"></span>
+				</div>
+			</div>
+			<!-- 右边栏 -->
+			<div class="am-u-sm-3 boma-padding-left-none boma-padding-right-none">
+				<div class="relative pt-download-panel">
+					<img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/pt/client-download.png">
+					<a href="{{'pt' | dic : 'client'}}" target="_blank"></a>
+					<div class="status-check" ng-if="!$root.user" >
+						<span ng-bind="'common-first' | i18n"></span>
+						<span ng-bind="'common-login' | i18n" class="boma-color-red pointer underline" login-trigger></span>
+						<span ng-bind="'pt-client-acc-b' | i18n"></span>
+					</div>
+					<div class="status-check" ng-if="$root.user" >
+						<span ng-bind="'pt-client-acc-a' | i18n" class="am-fl am-margin-horizontal boma-color-red pointer underline" ng-click="checkoutPtAcc();"></span>
+						<span ng-bind="'common-changePwd' | i18n" class="am-fr am-margin-horizontal boma-color-red pointer underline" ng-click="changePTPwd();"></span>
+					</div>
+				</div>
+				<div class="am-margin-top-lg pt-prizepool relative">
+					<img class="absolute" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/pt/prizepool.png">
+					<div class="totle">
+						<div ng-repeat="item in _restotle | filter: {pf: _cpf}" totle-prize number="item.total"></div>
+					</div>
+					<div ng-repeat="item in prizepool | filter: {pf: _cpf}" class="eachitem pointer" login-checker="playSlot(item, true)"  ng-class="{'eachitem-first': $first}">
+						<div class="am-u-sm-3">
+							<img class="pt-prizeIcon" ng-src="{{$root.workspace}}{{item.img_url}}">
+						</div>
+						<div class="am-u-sm-9">
+							<span class="gamename" ng-bind="item.game_name"></span><br>
+							<span class="gameval" ng-bind="item.val | currency: '￥' :2"></span>
+						</div>
+					</div>
+				</div>
+				<div class="am-margin-top-lg pt-luck relative">
+					<img class="absolute" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/pt/luck_user.png">
+					<div ng-repeat="item in luckUsers | filter: {pf: _cpf}" class="eachitem" ng-class="{'eachitem-first': $index === 0}">
+						<div class="am-u-sm-12 nowrap luck-item">
+							<div>
+								<span class="am-margin-right-sm" ng-bind="'common-user' | i18n"></span>
+								<span class="am-margin-right-sm bold" ng-bind="item.name"></span>
+								<span class="am-margin-right-sm" ng-bind="'common-at' | i18n"></span>
+								<span class="am-margin-right-sm bold" ng-bind="item.pf.substring(0,2)"></span>
+								<span class="am-margin-right-sm" ng-bind="'common-platform' | i18n"></span><br>
+							</div>
+							<div class="lineheight-xl">
+								<span ng-bind="'pt-winer' | i18n" class="am-fl"></span>
+								<span ng-bind="item.max_sum | currency: '￥' : 2" class='luckuser-money boma-color-red am-fr'></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

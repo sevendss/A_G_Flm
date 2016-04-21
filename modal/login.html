@@ -1,0 +1,37 @@
+<div class="md-modal md-effect-10 boma-modal boma-modal-login" id="modal-login" anti-aliasing>
+	<form w5c-form-validate="validateOptions" w5c-submit="callback('login')" name="loginForm" novalidate>
+		<div class="md-content" style="background-color: white">
+			<div class="boma-modal-tit">
+				<span class="am-block modal-login-tit"></span>
+			</div>
+			<div class="boma-modal-content">
+				<div class="modal-input relative">
+					<span class="am-block modal-icon modal-icon-username"></span>
+					<input autocomplete="off" type="text" ng-model='$parent._login.username' name="_login.username" placeholder="{{'placeholder_username' | i18n}}" required />
+					<clear-model ng-model="$parent._login.username"></clear-model>
+				</div>
+				<div class="modal-input relative">
+					<span class="am-block modal-icon modal-icon-password"></span>
+				<input autocomplete="off" type="password" ng-model='$parent._login.password' name="_login.password" placeholder="{{'placeholder_password' | i18n}}" required />
+					<clear-model ng-model="$parent._login.password"></clear-model>
+				</div>
+				<div class="modal-input login-checkcode" ng-if="$parent.errorTimes >= 3">
+					<input autocomplete="off" type="text" ng-model='$parent._login.checkcode' name="_login.checkcode" placeholder="{{'placeholder_checkcode' | i18n}}" ng-maxlength="4" ng-minlength="4" ng-pattern="/^\w+$/" required />
+					<img ng-init="$root.checkcode_ran='9e600529050105bf'" ng-src="index/imgcode?v={{$root.checkcode_ran}}">
+					<span class="boma-color-red underline pointer" ng-click="callback('refreshCheckCode')" ng-bind="'modal-login-changeone' | i18n"></span>
+				</div>
+				<div class="remember">
+					<span ng-bind="'common-findPassword' | i18n" class="am-fr am-margin-left-lg pointer" ng-click="callback('findPassword')"></span>
+					<boma-checkbox ng-model="$parent._login.remember" text="modal-login-remember" class="am-fr"></boma-checkbox>
+				</div>
+				<button type="submit" class="boma-btn-red-xl login">
+					<span ng-bind="'common-login' | i18n"></span>
+				</button>
+				<div class="footer">
+					<span ng-bind="'modal-login-noAccount' | i18n"></span>
+					<span class="goreg" ng-bind="'modal-login-goReg' | i18n" ng-click="callback('goregister')"></span>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,112 @@
+
+<div class="boma-min-width" ng-controller="__header">
+	<div class="boma-header" ng-class="{'header-limit-height': $root.miniMenu}">
+		<div class="boma-statusbar am-text-xs" ng-if="!$root.miniMenu">
+			<div class="am-container boma-container">
+				<a href="#/help/often" class="hover-white" target="_blank">
+					<span ng-bind="'common-helpCenter' | i18n"></span>
+				</a>
+				<a href="/aboutus.html" target="_blank" class="am-margin-left-xl hover-white" >
+					<span ng-bind="'common-aboutUs' | i18n"></span>
+				</a>
+				<div ng-if="showAnnouncement();" announcement size='mini'></div>
+				<div class="statusbar-personal am-fr" ng-if="$root.user">
+					<span ng-bind="'common-hello' | i18n" class="am-fl"></span>
+					<span ng-bind="$root.user.username" class="am-fl head-name"></span>
+					<a href="" class="boma-color-gray">
+						<span class="am-margin-left-sm icon-mail am-fl" href-plus url="#/my/message" ></span>
+						<span ng-bind="$root.user.info.unreadMsg" class="am-fl op"></span>
+					</a>
+					<span class="verticalLine-sm am-margin-left am-margin-right am-fl"></span>
+					<div class="am-fl balance">
+						<span class="am-fl" ng-bind="'common-hideBalance' | i18n" ng-if="!$root.conf.showBalance"></span>
+						<span class="am-fl" ng-bind="$root.user.balance.totleBalance | currency: '￥' :2" ng-if="$root.conf.showBalance"></span>
+						<span class="am-fl am-margin-left-sm balance-hide pointer" ng-class="{'balance-show': $root.conf.showBalance}" ng-click="toggleBalance();"></span>
+					</div>
+					<span href-plus url="#/my/recharge"  target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-charge' | i18n"></span>
+					<span href-plus url="#/my/withdraw"  target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-withdrawal' | i18n"></span>
+					<span href-plus url="#/my/transfers" target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-transfers' | i18n"></span>
+					<span class="verticalLine-sm am-margin-left am-margin-right am-fl"></span>
+					<a href="" class="boma-color-gray" ng-click="logout()">
+						<span class="icon-exit am-fl"></span>
+						<span class="am-fl op" ng-bind="'common-logout' | i18n"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- mini status bar-->
+		<div class="boma-statusbar am-text-xs" ng-if="$root.miniMenu">
+			<div class="am-container boma-container">
+				<a class="am-fl " href="#/">
+					<img class="logo-mini" lazy isrc="static/boma_v3/skin/v3_normal/images/zh-cn/common/logo.png" />
+				</a>
+				<div class="am-fl am-margin-left">
+					<div ng-repeat="item in menus" class="am-fl am-margin-left-sm am-margin-right">
+						<span class="am-block header-menu-mini pointer" ng-click="goPage(item)" ng-bind="item.lable | i18n"></span>
+					</div>
+				</div>
+				<div class="statusbar-personal am-fr" ng-if="$root.user">
+					<span ng-bind="'common-hello' | i18n" class="am-fl"></span>
+					<span ng-bind="$root.user.username" class="am-fl head-name"></span>
+					<a href="" class="boma-color-gray">
+						<span class="am-margin-left-sm icon-mail am-fl" href-plus url="#/my/message" ></span>
+						<span ng-bind="$root.user.info.unreadMsg" class="am-fl op"></span>
+					</a>
+					<span class="verticalLine-sm am-margin-left am-margin-right am-fl"></span>
+					<div class="am-fl balance">
+						<span class="am-fl" ng-bind="'common-hideBalance' | i18n" ng-if="!$root.conf.showBalance"></span>
+						<span class="am-fl" ng-bind="$root.user.balance.totleBalance | currency: '￥' :2" ng-if="$root.conf.showBalance"></span>
+						<span class="am-fl am-margin-left-sm balance-hide pointer" ng-class="{'balance-show': $root.conf.showBalance}" ng-click="toggleBalance();"></span>
+					</div>
+					<span href-plus url="#/my/recharge"  target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-charge' | i18n"></span>
+					<span href-plus url="#/my/withdraw"  target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-withdrawal' | i18n"></span>
+					<span href-plus url="#/my/transfers" target="_blank" class="am-fl op am-margin-left-sm pointer" ng-bind="'user-operation-transfers' | i18n"></span>
+					<span class="verticalLine-sm am-margin-left am-margin-right am-fl"></span>
+					<a href="" class="boma-color-gray" ng-click="logout()">
+						<span class="icon-exit am-fl"></span>
+						<span class="am-fl op" ng-bind="'common-logout' | i18n"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- Menu -->
+		<div class="am-padding-top-xs boma-navbar" ng-if="!$root.miniMenu" ng-class="{'boma-navbar-op50': user && ($root.page.code =='home' || $root.page.code =='speed')}">
+			<div class="am-container boma-container">
+				<a class="am-fl" href="#/">
+					<img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/common/logo.png">
+				</a>
+				<div class="am-fl boma-menu relative" ng-class="{'boma-menu-certified': $root.user}">
+					<div ng-repeat="item in menus" class="am-align-left am-margin-left-sm am-margin-right-sm" ng-mouseenter="triggerDropGame(item, 1)" ng-mouseleave="triggerDropGame(item, 0)">
+						<span class="am-block  header-menu pointer" 
+						ng-class="{'dropmenu-arrow': item.detail && $root.user, 'active': $root.page.code == item.lable, 'am-padding-horizontal-sm': !$root.user, 'am-padding-horizontal': $root.user}"
+						ng-click="goPage(item)" ng-bind="item.lable | i18n"></span>
+					</div>
+					<div class="dropGame dropGame-pt absolute" ng-mouseenter="triggerDropGame(null, 2)" ng-mouseleave="triggerDropGame(null, 0)" ng-show="dg === 'slot'">
+						<a href="#/slot/mg" class="absolute mg"></a>
+						<a href="#/slot/pt" class="absolute pt"></a>
+					</div>
+					<div class="dropGame dropGame-ag absolute" ng-mouseenter="triggerDropGame(null, 2)" ng-mouseleave="triggerDropGame(null, 0)" ng-show="dg === 'casino'">
+						<a target="_blank" href="#/casino/ag?in=1" class="absolute ag"></a>
+						<a href="#/casino/pt" class="absolute pt"></a>
+						<a target="_blank" href="{{'play_casino_bbin' | dic : 'conf'}}" class="absolute bbin"></a>
+						<a target="_blank" href="#/casino/gd?in=1" class="absolute gd"></a>
+					</div>
+					<div class="dropGame dropGame-sb absolute" ng-mouseenter="triggerDropGame(null, 2)" ng-mouseleave="triggerDropGame(null, 0)" ng-show="dg === 'sports'">
+						<a href="#/sports" class="absolute sb"></a>
+					</div>
+					<div class="dropGame dropGame-lo absolute" ng-mouseenter="triggerDropGame(null, 2)" ng-mouseleave="triggerDropGame(null, 0)" ng-show="dg === 'lottery'">
+						<a target="_blank" href="#/lottery/wbg?in=1" class="absolute wbg"></a>
+						<a target="_blank" href="{{'play_lottery_bbin' | dic : 'conf'}}"  class="absolute bbin"></a>
+					</div>
+				</div>
+				<div class="navbar-btn-group">
+					<a href="#" service-trigger class="boma-color-white">
+						<button class="am-align-right" ng-class="{'boma-btn-red-xs': $root.user, 'boma-btn-trans-xs': !$root.user}"><span ng-bind="'common-online-service' | i18n"></span></button>
+					</a>
+					<button ng-if="!$root.user" class="am-align-right boma-btn-red-xs" register-trigger ><span ng-bind="'common-register' | i18n"></span></button>
+					<button ng-if="!$root.user" class="am-align-right boma-btn-red-xs" login-trigger ><span ng-bind="'common-login' | i18n"></span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

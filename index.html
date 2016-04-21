@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html ng-app="boma" lang="{{$root.lang}}" >
+<head>
+	<meta charset="UTF-8">
+	<!-- 不允许手机浏览器放大缩小页面 -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<!-- 如果安装过Google Chrome Frame，则使用 GCF 来渲染页面，否则使用最高版本的 IE 内核进行渲染。 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<!-- 多内核浏览器，使用webkit 核心渲染 -->
+	<meta name="renderer" content="webkit">
+	<!-- 如果真的要给这个Cache加上一个期限，我希望是 【一,万,年】 -->
+	<meta http-equiv="Cache-Control" content="max-age=315360000000">
+	<meta name="description" content="{{'appDesc' | i18n}}">
+  	<meta name="keywords" content="{{'appKeyword' | i18n}}">
+  	<link rel="stylesheet" type="text/css" href="static/boma_v3/skin/amazeui.css" />
+	<!-- PC 端样式表 -->
+	<link rel="stylesheet" type="text/css" href="static/boma_v3/skin/v3_normal/css/pulgin.css "/>
+	<link rel="stylesheet" type="text/css" href="static/boma_v3/skin/v3_normal/css/boma.css "/>
+	<!--[if IE 9]>
+		<script type="text/javascript" src="static/boma_v3/js/libs/es5-shim.min.js"></script>
+	<![endif]-->
+	<link ng-if="$root.client.browser.name == 'ie'" rel="stylesheet" type="text/css" href="static/boma_v3/skin/v3_normal/css/ie9.css "/>
+
+</head>
+<body ng-controller="__framework" ng-class="switchBg($root.bg)">
+	<div class="md-trigger md-overlay"></div>
+	<div ng-include="'header.html'" class="index-header " ng-controller="__modal"></div>
+	<div ui-view class="index-view ngfade"></div>
+	<div ng-include="'footer.html'" ></div>
+	<div service-bar></div>
+	
+	<div ng-controller="__modal" ng-include="'modal/promotion_lite.html'" ></div>
+	<div ng-controller="__modal" ng-include="'modal/login.html'" ></div>
+	<div ng-controller="__modal" ng-include="'modal/register.html'" ></div>
+	<div ng-controller="__modal" ng-include="'modal/feedback.html'" ></div>
+	<div ng-controller="__modal" ng-include="'modal/findPwd.html'" ></div>
+
+	<!-- 风控代码 -->
+	<input type="hidden" id="ioBB">
+
+</body>
+
+<script type="text/javascript">
+	window.$path = '';
+	window.$s_version = '163';
+	window.$agent = '';
+</script>
+
+<script type="text/javascript" src="static/boma_v3/js/libs/sea.js"></script>
+<script type="text/javascript" src="static/boma_v3/js/libs/depend.js"></script>
+
+</html>

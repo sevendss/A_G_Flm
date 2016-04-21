@@ -1,0 +1,47 @@
+<div class="md-modal md-effect-8 boma-modal boma-modal-register" id="modal-register" anti-aliasing>
+	<form w5c-form-validate="validateOptions" w5c-submit="callback('register')" name="registerForm" novalidate>
+		<div class="md-content" style="background-color: white">
+			<div class="boma-modal-tit">
+				<span class="am-block modal-register-tit"></span>
+			</div>
+			<div class="boma-modal-content">
+				<div class="modal-input">
+					<span class="am-block modal-icon modal-icon-username"></span>
+					<span class="boma-modal-preAccountName boma-color-red" ng-bind="'preaccount' | dic : 'conf'"></span>
+					<input autocomplete="off" type="text" ng-model='$parent._register.username' name="_register.username" placeholder="{{'modal-register-comments' | i18n}}"  />
+				</div>
+				<!-- <div class="modal-register-comments"><span ng-bind="'modal-register-comments' | i18n"></span></div> -->
+				<div class="modal-input">
+					<span class="am-block modal-icon modal-icon-password"></span>
+					<input autocomplete="off" password ng-model='$parent._register.password' name="_register.password" placeholder="{{'pt-password-reg' | i18n}}"  />
+				</div>
+				<div class="modal-input">
+					<span class="am-block modal-icon modal-icon-password"></span>
+					<input autocomplete="off" password ng-model='$parent._register.password2' name="_register.password2" placeholder="{{'placeholder_password2' | i18n}}" />
+				</div>
+				<div class="modal-input">
+					<span class="am-block modal-icon modal-icon-file"></span>
+					<input autocomplete="off" type="text" ng-model='$parent._register.spreadCode' name="_register.spreadCode" placeholder="{{'placeholder_spreadCode' | i18n}}"
+					ng-disabled="$parent.$parent.agent_code_readonly" />
+				</div>
+				<div class="modal-input login-checkcode">
+					<input autocomplete="off" type="text" ng-model='$parent._register.checkcode' name="_register.checkcode" placeholder="{{'placeholder_checkcode' | i18n}}"  />
+					<img ng-init="$root.checkcode_ran='9e600529050105bf'" ng-src="index/imgcode?v={{$root.checkcode_ran}}">
+					<span class="boma-color-red underline pointer" ng-click="callback('refreshCheckCode')" ng-bind="'modal-login-changeone' | i18n"></span>
+				</div>
+				<div class="boma-modal-register-agree">
+					<boma-checkbox ng-model="$parent._register.agree" class="boma-modal-register-agree-dir"></boma-checkbox>
+					<span ng-bind="'common-register-agree' | i18n"></span>
+					<a target="_blank" href="#/help/privacy" class="boma-color-red"><span ng-bind="'common-register-private' | i18n" class="underline"></span></a>
+					<span ng-bind="'common-register-and' | i18n"></span>
+					<a target="_blank" href="#/help/rules" class="boma-color-red"><span ng-bind="'common-register-service' | i18n" class="underline"></span></a>
+				</div>
+				<button type="submit" class="boma-btn-red-xl register"><span ng-bind="'common-register' | i18n"></span></button>
+				<div class="footer" >
+					<span ng-if="!$root.user" ng-bind="'modal-register-accounted' | i18n"></span>
+					<span ng-if="!$root.user" class="goLogin" ng-bind="'modal-register-goLogin' | i18n" ng-click="callback('gologin')"></span>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,133 @@
+
+<div class="boma-min-width" ng-controller="__home">
+	<!-- 登录前 -->
+	<div class="am-container boma-container ngFade" ng-if="!$root.user">
+		<div class="index-icons">
+			<ul class="am-avg-sm-4">
+			  <li><a href="#/slot"><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/c_1.png" ></a></li>
+			  <li><a href="#/casino"><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/c_2.png" ></a></li>
+			  <li><a href="#/sports"><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/c_3.png" ></a></li>
+			  <li><a href="#/lottery"><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/c_4.png" ></a></li>
+			</ul>
+		</div>
+		<img class="am-center home-copywriter_1" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/copywriter_1.png" >
+		<div class="circle-progress">
+			<ul class="am-avg-sm-4">
+				<li><circle-progress rate=".6" img="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_1.png" ></circle-progress></li>
+			 	<li><circle-progress rate=".9" img="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_2.png" ></circle-progress></li>
+			 	<li><circle-progress rate="1" img="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_3.png" ></circle-progress></li>
+			 	<li><circle-progress rate=".8" img="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_4.png" ></circle-progress></li>
+			</ul>
+		</div>
+		<div class="index-cw">
+			<ul class="am-avg-sm-4">
+				<li><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_1_1.png"></li>
+			 	<li><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_2_1.png"></li>
+			 	<li><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_3_1.png"></li>
+			 	<li><img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/index/cw_4_1.png"></li>
+			</ul>
+		</div>
+	</div>
+	<!-- 登录后 -->
+	<div class="index-certified ngfade" ng-if="$root.user">
+		
+		<div class="flaceholder-banner">
+			<div ng-include="'/tpl/banners.html'"></div>
+		</div>
+		<div class="am-container boma-container relative">
+			<div class="index-personalPanel absolute">
+				<div class="personalPlane-welcome absolute">
+					<span ng-bind="'common-hello' | i18n"></span><span ng-bind="$root.user.username"></span>
+				</div>
+				<div class="personalPlane-remind am-g">
+					<div class="am-u-sm-8 boma-padding-none">
+						<a class="pointer" href="#/my/safety">
+							<span ng-bind="$root.user.info.unsetSecurity"></span>
+							<span ng-bind="'common-unfiled' | i18n"></span>
+						</a>
+					</div>
+					<div class="am-u-sm-4 boma-padding-none boma-fl">
+						<a class="pointer" href="#/my/message">
+							<span ng-bind="$root.user.info.unreadMsg"></span>
+							<span ng-bind="'common-unread' | i18n"></span>
+						</a>
+					</div>
+				</div>
+				<div class="personalPlane-balance">
+					<span class="am-fl t" ng-bind="'common-totalmoney' | i18n"></span>
+					<span class="personalPlane-totleMoney am-fl" ng-bind="$root.user.balance.totleBalance | currency: '' :2"></span>
+					<span class="am-fl t" ng-bind="'common-currencyunit' | i18n"></span>
+					<span class="icon-refresh-s am-fl pointer" ng-click="refreshBalance();"></span>
+				</div>
+				<div class="personalPlane-operation">
+					<span class="am-fl am-u-sm-4 l" href-plus url="#/my/recharge"  ng-bind="'user-operation-charge' | i18n"></span>
+					<span class="am-fl am-u-sm-4 c" href-plus url="#/my/withdraw"  ng-bind="'user-operation-withdrawal' | i18n"></span>
+					<span class="am-fl am-u-sm-4 r" href-plus url="#/my/transfers" ng-bind="'user-operation-transfers' | i18n"></span>
+				</div>
+			</div>
+		</div>
+		<div announcement></div>
+		<div class="index-game-content">
+			<div class="am-container boma-container index-games">
+				<div class="index-games-item">
+					<div class="item1">
+					</div>
+					<div class="contents">
+						<ul class="am-avg-sm-7">
+							<li ng-repeat="item in pfs" class="relative" ng-mouseenter="inGameHall(item)" ng-mouseleave="outGameHall()">
+								<img ng-if="_hall !== item" lazy isrc="static/boma_v3/skin/v3_normal/images/common/pfs/{{item}}.png" />
+								<div class="index-float-hall-bg" ng-if="_hall === item">
+									<button class="boma-btn-red-xs" ng-click="enterGameHall(item)"><span ng-bind="'common-enter-pf' | i18n"></span></button>
+								</div>
+								<div class="am-margin-top-sm am-text-center am-text-default ">
+									<span ng-bind="'pfs-' + item | i18n"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="index-games-item">
+					<div class="item2">
+						<span class="changeItem pointer" ng-click="changeHotGame();"></span>
+					</div>
+					<div class="contents" ng-class="{'boma-loading' :!$root.hotGames}">
+						<ul class="am-avg-sm-7 content-inbtn">
+							<li ng-repeat="item in $root.hotGames.games" ng-mouseenter="inGameArea(item, 1)" ng-mouseleave="outGameArea()" class="relative index-float-game-bg">
+								<img class="hotGame"  isrc="static/boma_v3/skin/v3_normal/images/common/{{item.image}}" lazy />
+								<div class="am-margin-top-sm am-text-center am-text-default ">
+									<span ng-if="$root.lang === 'zh-cn'" ng-bind="item.zh"></span>
+								</div>
+								<div ng-if="showPlayGame_hot === item.game_name" class="index-float-game"></div>
+								<button ng-click="playSlot(item)" ng-if="showPlayGame_hot === item.game_name" class="am-margin-top-sm boma-btn-red-xs">
+									<span ng-bind="'common-beginGame' | i18n"></span>
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="index-games-item">
+					<div class="item3">
+						<span class="changeItem pointer"></span>
+					</div>
+					<div class="contents" ng-class="{'boma-loading' : $root.user && !$root.user.collectedGames}">
+						<ul class="am-avg-sm-7">
+							<li ng-repeat="item in $root.user.collectedGames.games track by $index" ng-mouseenter="inGameArea(item, 2)" ng-mouseleave="outGameArea()" class="index-collected am-margin-bottom relative index-float-game-bg">
+								<img class="hotGame" lazy isrc="static/boma_v3/skin/v3_normal/images/common{{item.image}}" />
+								<div class="am-margin-top-sm am-text-center am-text-default ">
+									<span ng-if="$root.lang === 'zh-cn'" ng-bind="item.zh"></span>
+								</div>
+								<div ng-if="showPlayGame_collected === item.game_name" class="index-float-game"></div>
+								<button ng-click="playSlot(item)" ng-if="showPlayGame_collected === item.game_name" class="am-margin-top-sm boma-btn-red-xs">
+									<span ng-bind="'common-beginGame' | i18n"></span>
+								</button>
+							</li>
+							<img ng-if="$root.user && $root.user.collectedGames && $root.user.collectedGames.games.length == 0" 
+							lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/common/default_collect.png">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

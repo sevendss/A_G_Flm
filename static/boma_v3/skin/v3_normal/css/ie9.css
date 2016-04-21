@@ -1,0 +1,11 @@
+/**
+ * 为IE9提供样式辅助
+ */
+
+div.casino-if{width: 100% !important; height: 100% !important}
+div.casino-if iframe{height: 995px !important;}
+div.game-search input{margin-top: 0px;}
+.am-form select{background-image: none !important}
+table.am-table{margin-top: 20px !important;}
+div.boma-paging span.right{height: 19px;width: 24px;display: block;float: right;margin-top: 2px;}
+select.boma-select{padding:0px !important;}

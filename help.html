@@ -1,0 +1,17 @@
+
+<div ng-controller="__help">
+	<div style="background:#e7e2e8;margin-top: 106px;min-height: 800px">
+		<div class="boma-container">
+			<div class="helpcenter icon"></div>
+			<div style="background: #EFEDF0;">
+				<div style="float:left;width: 204px;background:#EDEBEE;min-height: 500px">  <!-- 左侧菜单-->
+					<div ng-repeat="item in menu" class="ng-scope">
+						<div class="game-rules-main"><span ng-click="jump(item.url)" ng-class="{'game-rules-button1': _cururl == '/'+item.url, 'game-rules-button2': _cururl != '/'+item.url}" ng-bind="item[$root.lang]"></span></div>
+					</div>
+				</div>
+				<div ng-include="htmlname" style="padding-left: 204px; min-height: 800px;"></div>
+			</div>
+			
+		</div>
+	</div>
+</div>

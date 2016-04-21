@@ -1,0 +1,63 @@
+
+<div ng-controller="__client">
+	<div class="flaceholder-banner-client relative">
+		<div ng-include="'/tpl/banners.html'"></div>
+		<div class="absolute boma-full-screen banner-set">
+			<div class="am-container boma-container relative">
+				<div class="client-download-set">
+					<div class="boma-full-screen relative">
+						<button anchor href="#c-boma" class="relative pc"><a class="boma-color-white" href="#c-boma"></a>博马365客户端(PC)</button>
+						<button anchor href="#c-ag" class="relative phone"><a class="boma-color-white"></a>AG手机客户端</button>
+						<button anchor href="#c-pt" class="relative pc"><a class="boma-color-white"></a>PT老虎机客户端(PC)</button>
+						<button anchor href="#c-sb" class="relative phone"><a class="boma-color-white"></a>沙巴手机客户端</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="client-whiteBlock client-boma" id="c-boma">
+		<div class="am-container boma-container">
+			<img class="txt" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/boma-text.png" >
+			<img class="pic" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/boma-pic.jpg" >
+			<!-- <a href="{{'boma' | dic : 'client'}}" target="_blank"> -->
+				<button class="client-download download" ng-click="pcDownload()"><span ng-bind="'common-download-i' | i18n"></span></button>
+			<!-- </a> -->
+		</div>
+	</div>
+	<div class="client-grayBlock client-ag" id="c-ag">
+		<div class="am-container boma-container">
+			<img class="pic" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/ag-pic.jpg" >
+			<img class="txt" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/ag-text.png" >
+			<a href="http://agin.cc" target="_blank" class="absolute"></a>
+			<a href="http://agmbet.com/" target="_blank" class="absolute qr"></a>
+		</div>
+	</div>
+	<div class="client-whiteBlock client-pt" id="c-pt">
+		<div class="am-container boma-container">
+			<img class="txt" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/pt-text.png" >
+			<img class="pic" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/pt-pic.jpg" >
+			<a href="{{'pt' | dic : 'client'}}" target="_blank"><button class="client-download download"><span ng-bind="'common-download-i' | i18n"></span></button></a>
+			<div class="before" ng-if="!$root.user" >
+				<span ng-bind="'common-first' | i18n"></span>
+				<span ng-bind="'common-login' | i18n" class="boma-color-red pointer underline" login-trigger></span>
+				<span ng-bind="'pt-client-acc-b' | i18n"></span>
+			</div>
+			<div class="after ngfade" ng-if="$root.user">
+				<div class="boma-full-screen relative">
+					<span class="client-pt-acc" ng-bind="$root.user.pfAcc[0].username"></span>
+					<span class="client-pt-pwd" ng-bind="$root.user.pfAcc[0].password"></span>
+					<span class="client-copy-acc absolute pointer" clip-copy="$root.user.pfAcc[0].username" clip-click="copy('acc');"></span>
+					<span class="client-copy-pwd absolute pointer" clip-copy="$root.user.pfAcc[0].password" clip-click="copy('pwd');"></span>
+					<span class="client-change-pwd absolute pointer" ng-click="modifyPTPwd();"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="client-grayBlock client-sb" id="c-sb">
+		<div class="am-container boma-container relative">
+			<img class="pic" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/sb-pic.png" >
+			<img class="txt" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/client/sb-text.png" >
+			<a href="http://www.boma365.com/msb" target="_blank"></a>
+		</div>
+	</div>
+</div>

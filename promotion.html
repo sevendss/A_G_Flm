@@ -1,0 +1,28 @@
+
+<div ng-controller="__promotion">
+	<div class="am-container boma-container promotion-container">
+		<div class="promotion-nav relative" ng-class="toggleNav()">
+			<span class="absolute pointer nav1" ng-click="switchNav()"></span>
+			<span class="absolute pointer nav2" ng-click="switchNav('1')"></span>
+			<span class="absolute pointer nav3" ng-click="switchNav('2')"></span>
+			<span class="absolute pointer nav4" ng-click="switchNav('0')"></span>
+		</div>
+		<div class="promotion-contents">
+			<div ng-repeat="item in promotions | filter: {category: _ca} | unique: 'id' track by $index" class="am-u-sm-4 boma-padding-none ngFade" ng-class="{'last' : $last}">
+				<div class="promotion-item relative">
+					<img class="b pointer" lazy isrc="{{$root.workspace}}{{item.image}}" ng-click="detail(item)"/>
+					<div deadline time="item.deadline" class="deadline relative"></div>
+					<span class="title" ng-bind="'promotion-summary' | i18n"></span>
+					<p class="desc pointer" ng-click="detail(item)">
+						{{item.summary}}
+					</p>
+					<div class="action" >
+						<div hotstar rate="item.star" class="am-fl"></div>
+						<a href="#" service-trigger><button class="boma-btn-red-xs am-fr"><span ng-bind="'common-apply' | i18n"></span></button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-controller="__modal" ng-include="'modal/promotionDetail.html'" ></div>
+</div>

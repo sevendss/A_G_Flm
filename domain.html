@@ -1,0 +1,24 @@
+
+<div ng-controller="__domain">
+	<div class="domainbigbg">
+		<div class="boma-container">
+			<div class="domaintextarea" >
+				<table style="width: 410px;position: relative;top:100px;left:90px;height: 160px">
+					<tr>
+						<td colspan="3">
+							<input  ng-model="_r.url" null-value txt="请输入当前域名" style="width:410px;height: 34px;"  maxlength="50" >
+						</td>
+					</tr>
+					<tr>
+						<td width="250px"><input  ng-model="_r.checkcode"  null-value txt="请输入验证码" style="width:226px;height: 34px;"  maxlength="50" ></td>
+						<td width="100px"><img  ng-src="index/imgcode?v=random" src="index/imgcode?v={{random}}"></td>
+						<td ><a href="javascript:;" ng-click="changecode()">换一个</td>
+					</tr>
+					<tr style="text-align: center ">
+						<td colspan="3"><div><button class="boma-btn-white-xs" ng-click="checkUrl()">立即验证</button></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

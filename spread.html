@@ -1,0 +1,72 @@
+
+<div class="boma-min-width" ng-controller="__spread">
+	<div class="index-certified ngfade">
+		
+		<div class="flaceholder-banner">
+			<div ng-include="'tpl/banners.html'"></div>
+		</div>
+		<div announcement></div>
+		<div class="index-game-content">
+			<div class="am-container boma-container index-games">
+				<div class="index-games-item">
+					<div class="itemspread-1">
+					</div>
+					<div class="contents">
+						<ul class="am-avg-sm-7">
+							<li ng-repeat="item in pfs" class="relative" ng-mouseenter="inGameHall(item)" ng-mouseleave="outGameHall()">
+								<img ng-if="_hall !== item" lazy isrc="{{$root.workspace}}/static/boma_v3/skin/v3_normal/images/common/pfs/{{item}}.png" />
+								<div class="index-float-hall-bg" ng-if="_hall === item">
+									<button ng-if="!$root.user" class="boma-btn-red-xs" register-trigger><span ng-bind="'common-enter-pf' | i18n"></span></button>
+									<button ng-if="$root.user" class="boma-btn-red-xs" ng-click="enterGameHall(item)"><span ng-bind="'common-enter-pf' | i18n"></span></button>
+								</div>
+								<div class="am-margin-top-sm am-text-center am-text-default ">
+									<span ng-bind="'pfs-' + item | i18n"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="index-games-item">
+					<div class="itemspread-2"></div>
+					<div class="contents" ng-class="{'boma-loading' :!hotgames}">
+						<div id="flexslider"  class="am-u-sm-12 flexslider carousel" style="padding-left: 8px;padding-right: 0px;height: 225px !important;">
+				         	<ul class="slides content-inbtn">
+								<li ng-repeat="item in hotgames" on-finish-render   style="text-align: left;" class="relative am-margin-bottom ngFade">
+									<img class="pt-game" style="height:118px;width:140px;" lazy isrc="{{$root.workspace}}/static/boma_v3/skin/v3_normal/images/common/{{item.image}}" ng-mouseenter="inGameArea(item)"/>	
+									<div class="spread-float-playgame" ng-if="_cgame === item.name" ng-mouseleave="outGameArea()" style="text-align: center">
+										<button  ng-click="trySlot(item)" class="boma-btn-white-xs" style="margin-top: 45px;">
+											<span ng-bind="'common-trygame' | i18n"></span>
+										</button>
+									</div>		
+									<div class="am-margin-top-sm am-margin-bottom-lg am-text-center ">
+										<span class="boma-padding-none am-u-sm-9"  ng-bind="item.name"></span>
+									</div>
+								</li>
+							</ul>
+				     	</div>
+				    </div>
+				</div>
+				<div class="index-games-item" style="margin-top:140px">
+					<div class="itemspread-3"></div>
+					<div style="color:#7F7F7F;font-size: 14px;padding:30px">北美总部成立于2003年；亚洲总部于2013年5月创办并持有菲律宾游戏执照。福临门（FLM188）接受CEZA和第一卡格杨地区（FIRST CAGAYAN）的法律管辖，合法经营。</br>
+                        福临门（FLM188）携手澳门新濠锋营造奢华赌厅，为会员开设专属奢华赌厅！由世界著名、屡获殊荣的室内设计师Peter Remdios精心设计。216间豪华客房，24间高级套房和8间私人别墅。汇聚雍容气派、典雅于一身！福临门（FLM188）独家赞助10架Bomabardier私人飞机和15艘Azimut私人游艇，热衷于飞行或航行的福临门（FLM188）会员可提出正式申请，与您的家人朋友畅游于马尼拉（Manila）至澳门（Macau）的尊贵独享航线。
+					</div>
+					<div style="margin-left: 30px;width:1045;height:120px;background: url('/static/boma_v3/skin/v3_normal/images/common/lunchuan.png')">
+						
+					</div>
+				</div>
+
+				<div class="index-games-item" style="position: relative;">
+					<div class="itemspread-4"></div>
+					<div style="width:704px;height: 346px;margin:34px 206px;background: black">
+						<video  controls preload="auto" width="704" height="346" id="myvideo" poster="/static/boma_v3/skin/v3_normal/images/common/video.png" data-setup="{}">
+						    <source src="spread-min.mp4" type='video/mp4'>
+						</video>
+					</div>
+					<a class="spread-play" href="javascript:;" ng-click="playVideo()"></a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

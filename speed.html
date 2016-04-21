@@ -1,0 +1,32 @@
+
+<div ng-controller="__speed">
+	<div class="speedbigbg">
+		<div class="boma-container">
+			<div class="speed icon"></div>
+			<div>
+				<div class="speedtestarea">  
+						<div style="padding-top: 52px;font-size: 15px;padding-left:22px;">
+							<table style="color: white;">
+								<tr ng-repeat="item in finalurl" style="height:58px">
+									<td  ng-bind="item.urlstr" width="270px"></td>
+									<td width="360px"><div class="speed-progress" style="width:292px;padding-top: 22.5px;padding-left: 34px" progress opts='opts' rate="item.time"></div></td>
+									<td style="width: 218px;text-align: center;">
+										<button class="boma-btn-white-xs" href-plus url="{{item.url}}" target="_blank">进入网址</button>
+									</td>
+								</tr>
+							</table>
+							
+						</div>
+				</div>
+				<div class="relative" style="float: right;width: 326px;background: url('static/boma_v3/skin/v3_normal/images/zh-cn/speed/brobg.png');min-height: 930px">
+ 					<a href="http://www.google.cn/chrome/browser/desktop/" target="_blank" class="absolute" style="width:50px; height:60px; left:39px; top:356px;"></a>
+ 					<a href="http://www.firefox.com.cn/" target="_blank" class="absolute" style="width:50px; height:60px; left:96px; top:356px;"></a>
+ 					<a href="http://browser.qq.com/" target="_blank" class="absolute" style="width:50px; height:60px; left:154px; top:356px;"></a>
+ 					<a href="http://www.uc.cn/ucbrowser/download/" target="_blank" class="absolute" style="width:50px; height:60px; left:200px; top:356px;"></a>
+ 					<a href="http://se.360.cn/" target="_blank" class="absolute" style="width:50px; height:60px; left:252px; top:356px;"></a>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,98 @@
+
+<div ng-controller="__my.c.pwd" class="md-modal md-effect-3 boma-modal boma-modal-findPwd" id="modal-findPwd" anti-aliasing>
+	<div class="md-content am-padding-top" style="background-color: white">
+		<div class="am-margin-vertical boma-font-16 bold am-text-center">找回密码</div>
+		<div class="processBar" ng-class="{'changePwd-s1': _s == 1, 'changePwd-s2': _s == 2, 'changePwd-s3': _s == 3, 'changePwd-s4': _s == 4}"></div>
+		<form ng-if="_s === 1" class="am-margin-top-lg am-form findPwd-s1 ngfade" w5c-form-validate="validateOptions" w5c-submit="getUserByFindPwd()" name="getUserByFindPwdForm" novalidate>
+			<div class="boma-input-set">
+				<span class="text">用户名：</span>
+				<div class="bg">
+					<input autocomplete="off" class="am-form-field am-input-sm" ng-model="_user.account" name="username">				
+				</div>
+			</div>
+			<div class="boma-input-set">
+				<span class="text">验证码：</span>
+				<div class="bg">
+					<input autocomplete="off" class="am-form-field am-input-sm" ng-model="_user.token" name="token">	
+					<img ng-init="$parent.$root.checkcode_ran='9e600529050105bf'" ng-src="index/imgcode?v={{$root.checkcode_ran}}" ng-click="callback('refreshCheckCode')" class="pointer">
+				</div>
+			</div>
+			<div class="boma-submit-footer">
+				<button type="submit"><span ng-bind="'common-submit' | i18n"></span></button>
+			</div>
+		</form>
+		<!-- 第二部 -->
+		<div class="modal-findPwd-2 ngfade" ng-if="_s === 2">
+			<div class="am-u-sm-6 l">
+				<div class="color-gray am-margin-bottom">方式一：通过回答安全问题</div>
+				<form ng-if="_safety.problem_id" class="am-form" w5c-form-validate="validateOptions" w5c-submit="checkQA()" name="checkQAorm" novalidate>
+					<div class="boma-input-set my-safety-qa">
+						<span class="text">安全问题：</span>
+						<div converter type="security_answer" key="_safety.problem_id"></div>
+					</div>
+					<div class="boma-input-set">
+						<span class="text">　　答案：</span>
+						<div class="bg">
+							<input autocomplete="off" class="am-form-field am-input-sm" name="given_name" ng-model="_safety.answer" required>				
+						</div>
+					</div>
+					<div class="boma-submit-footer">
+						<button type="submit"><span ng-bind="'common-submit' | i18n"></span></button>
+					</div>
+				</form>
+				<div class="am-margin-top" ng-if="!_safety.problem_id">您还没有绑定密保问题</div>
+			</div>
+			<div class="am-u-sm-6 r">
+				<div class="color-gray am-margin-bottom">方式二：通过绑定邮箱</div>
+				<form ng-if="_safety.email" class="am-form" w5c-form-validate="validateOptions" w5c-submit="checkMail()" name="checkMailForm" novalidate>
+					<div class="boma-input-set">
+						<span class="text">电子邮箱：</span>
+						<div class="bg">
+							<input autocomplete="off"  class="am-form-field am-input-sm" name="email" ng-model="_safety.email" readonly>
+						</div>
+					</div>
+					<div class="boma-input-set">
+						<span class="text">　验证码：</span>
+						<div class="bg">
+							<input autocomplete="off" class="am-form-field am-input-sm my-change-qa-token" name="given_name" ng-model="_safety.auth_code" required>	
+							<button type="button" class="no-radius" ng-click="getAuthCode(1)" 
+							ng-disabled="_mailToken" ng-class="{'disabled':_mailToken, 'boma-btn-red-xs':!_mailToken}">获取验证码</button>				
+						</div>
+					</div>
+
+					<div class="boma-submit-footer">
+						<button type="submit"><span ng-bind="'common-submit' | i18n"></span></button>
+					</div>
+				</form>
+				<div class="am-margin-top" ng-if="!_safety.email">您还没有绑定邮箱</div>
+			</div>
+			<div class="b">提示：如您以上方式都已无法使用，请与<span class="boma-color-red underline pointer" service-trigger>在线客服</span>联系，协助解决问题</div>
+		</div>
+		<!-- 第三步 -->
+		<form ng-if="_s === 3" class="am-margin-top-lg am-form findPwd-s1 ngfade" w5c-form-validate="validateOptions" w5c-submit="changePwd()" name="changeLoginPwdForm" novalidate>
+			<div class="boma-input-set">
+				<span class="text">新登录密码：</span>
+				<div class="bg">
+					<input autocomplete="off" password class="am-form-field am-input-sm" ng-model="_newPwd.newpassword" name="newpassword">				
+				</div>
+			</div>
+			<div class="boma-input-set">
+				<span class="text">　确认密码：</span>
+				<div class="bg">
+					<input autocomplete="off" password class="am-form-field am-input-sm" w5c-repeat="newpassword" ng-model="_newPwd.cNewpassword"  name="confirmpassword">				
+				</div>
+			</div>
+			<div class="boma-submit-footer">
+				<button type="submit"><span ng-bind="'common-submit' | i18n"></span></button>
+			</div>
+		</form>
+		<!-- 第四步 -->
+		<div ng-if="_s === 4" class="am-margin-top-xl am-text-center">
+			<div class="find-pwd-success"></div>
+			<span>恭喜您已经重设了密码，现在您可以去登录博马365了</span><br>
+			<div class="boma-submit-footer  boma-padding-none">
+				<button type="submit" ng-click="goLoginI()"><span ng-bind="'modal-register-goLogin' | i18n"></span></button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div ng-controller="__lottery">
+	<div ng-if="!showGameHall" class="flaceholder-banner">
+		<div ng-include="'tpl/banners.html'"></div>
+	</div>
+	<div ng-if="!showGameHall" announcement></div>
+	<div ng-if="!showGameHall" class="lottery-game-content">
+		<div class="am-container boma-container lottery-games">
+			<div class="am-padding-horizontal am-text-center am-margin-top-xl">
+				<img lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/lottery/panel1.jpg">
+				<img class="am-margin-left" lazy isrc="static/boma_v3/skin/v3_normal/images/{{$root.lang}}/lottery/panel2.jpg">
+				<button class="wbg" login-checker="enterPf('wbg')"><span ng-bind="'common-enter-pf' | i18n"></span></button>
+				<button class="bbin" login-checker="enterPf('bbin')"><span ng-bind="'common-enter-pf' | i18n"></span></button>
+			</div>
+		</div>
+	</div>
+	<div ng-if="showGameHall" class="am-container boma-container-1000 lottery-wbg-iframe">
+		<iframe iframe-onload class="boma-full-screen" ng-src="{{gameUrl}}" frameborder="no" border="0" style="width: 1020px; border: 0px"></iframe>
+	</div>
+</div>

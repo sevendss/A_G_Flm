@@ -1,0 +1,27 @@
+<div ng-controller="__casino">
+	<div ng-if="!showGameHall" class="flaceholder-banner">
+		<div ng-include="'tpl/banners.html'"></div>
+	</div>
+	<div ng-if="!showGameHall" announcement></div>
+	<div ng-if="!showGameHall" class="casino-game-content">
+		<div class="am-container boma-container casino-games">
+			<div ng-repeat="item in casinos track by $index" class="am-text-center am-margin-top-xl am-fl relative casino-panel" 
+			ng-class="{'am-margin-horizontal-lg': $index%2 ===0, 'am-margin-horizontal': $index%2 ===1}">
+				<img lazy isrc="static/boma_v3/skin/v3_normal/images/common/casino/{{item.image}}" />
+				<div class="absolute title">
+					<span ng-bind="item.title[$root.lang]"></span>
+				</div>
+				<div class="absolute desc">
+					<span ng-bind="item.desc[$root.lang]"></span>
+				</div>
+				<div class="absolute playgame">
+					<button login-checker="enterPf(item)"><span ng-bind="'common-enter-pf' | i18n"></span></button>
+				</div>
+				<div carousellit pf="item.name" data="item.games"></div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="showGameHall" class="casino-if am-text-center">
+		<iframe iframe-onload class="boma-full-screen" ng-src="{{gameUrl}}" frameborder="no" border="0" style="border: 0px"></iframe>
+	</div>
+</div>

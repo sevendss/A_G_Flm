@@ -1,0 +1,36 @@
+
+<div class="boma-min-width footer-block" ng-controller="__footer">
+	<div class="am-container boma-container boma-footer">
+		<div class="am-fl footer-l">
+
+			<div><span ng-bind="'footer-l1' | i18n"></span></div>
+			<div><span ng-bind="'footer-l2' | i18n"></span></div>
+		</div>
+		<div class="am-fl footer-c">
+			<img lazy isrc='static/boma_v3/skin/v3_normal/images/{{$root.lang}}/footer/license.png' />
+			<div><span ng-bind="'footer-c1' | i18n"></span></div>
+		</div>
+		<div class="am-fr footer-r">
+			<div>
+				<a class="hover-white" href="{{'aff' | dic : 'contact'}}" target="_blank"><span ng-bind="'footer-r1-1' | i18n"></span></a>
+				<a ng-if="!$root.isAgent" class="hover-white" href="#/domain"><span ng-bind="'footer-r1-2' | i18n"></span></a>
+				<a ng-if="!$root.isAgent" class="hover-white" href="#/speed"><span href="/#/speed" ng-bind="'footer-r1-3' | i18n"></span></a>
+			</div>
+			<div class='contact'>
+				<div class="am-fl">
+					<img lazy isrc='static/boma_v3/skin/v3_normal/images/{{$root.lang}}/footer/icon_service.png' />
+					<span service-trigger class="pointer hover-white" ng-bind="'footer-r2' | i18n"></span>　
+				</div>
+				<div class="am-fl">
+					<img lazy isrc='static/boma_v3/skin/v3_normal/images/{{$root.lang}}/footer/icon_mail.png' />
+					<a href="mailto:{{'service_mail' | dic : 'contact'}}"><span class="pointer hover-white" ng-bind="'service_mail' | dic : 'contact'">　</span>　</a>
+				</div>
+				<div class="am-fl">
+					<img lazy isrc='static/boma_v3/skin/v3_normal/images/{{$root.lang}}/footer/icon_phone.png' />
+					<span ng-bind="'hotline' | dic : 'contact'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-container boma-container boma-copyright">Copyright © 2013 - 2016 {{'domain' |  dic : 'contact'}}. All Rights Reserved</div>
+</div>
